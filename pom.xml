@@ -16,7 +16,7 @@
         <module>springboot-jdbc-demo</module>
         <module>springboot-mybatis-demo</module>
         <module>springboot-thymeleaf-demo</module>
-
+		<module>springboot-solr-demo</module>
     </modules>
 
 
