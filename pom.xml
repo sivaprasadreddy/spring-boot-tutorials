@@ -12,8 +12,10 @@
     </properties>
 
     <modules>
-        <module>spring-conditional</module>
-        <module>springboot-thymeleaf-tutorial</module>
+        <module>spring-conditional-demo</module>
+        <module>springboot-jdbc-demo</module>
+        <module>springboot-mybatis-demo</module>
+        <module>springboot-thymeleaf-demo</module>
 
     </modules>
 

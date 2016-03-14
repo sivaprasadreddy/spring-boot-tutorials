@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.sivalabs</groupId>
-    <artifactId>spring-conditional</artifactId>
+    <artifactId>spring-conditional-demo</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
