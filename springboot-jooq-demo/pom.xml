@@ -72,38 +72,9 @@
 
 	<profiles>
 		<profile>
-			<id>generate-h2</id>
-
+			<id>h2</id>
 			<build>
 				<plugins>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>sql-maven-plugin</artifactId>
-						<version>1.5</version>
-						<executions>
-							<execution>
-								<phase>generate-sources</phase>
-								<goals>
-									<goal>execute</goal>
-								</goals>
-							</execution>
-						</executions>
-						<dependencies>
-							<dependency>
-								<groupId>com.h2database</groupId>
-								<artifactId>h2</artifactId>
-								<version>${h2.version}</version>
-							</dependency>
-						</dependencies>
-						<configuration>
-							<driver>org.h2.Driver</driver>
-							<url>jdbc:h2:~/springbootjooq</url>
-							<srcFiles>
-								<srcFile>${basedir}/src/main/resources/reset.sql</srcFile>
-								<srcFile>${basedir}/src/main/resources/schema.sql</srcFile>
-							</srcFiles>
-						</configuration>
-					</plugin>
 					<plugin>
 						<groupId>org.jooq</groupId>
 						<artifactId>jooq-codegen-maven</artifactId>
@@ -145,40 +116,9 @@
 			</build>
 		</profile>
 		<profile>
-			<id>generate-mysql</id>
-			
+			<id>mysql</id>			
 			<build>
 				<plugins>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>sql-maven-plugin</artifactId>
-						<version>1.5</version>
-						<executions>
-							<execution>
-								<phase>generate-sources</phase>
-								<goals>
-									<goal>execute</goal>
-								</goals>
-							</execution>
-						</executions>
-						<dependencies>
-							<dependency>
-								<groupId>mysql</groupId>
-								<artifactId>mysql-connector-java</artifactId>
-								<version>${mysql.version}</version>
-							</dependency>
-						</dependencies>
-						<configuration>
-							<driver>com.mysql.jdbc.Driver</driver>
-							<url>jdbc:mysql://localhost:3306/test</url>
-							<!-- <user>root</user> -->
-							<username>root</username>
-							<password>admin</password>
-							<srcFiles>
-								<srcFile>${basedir}/src/main/resources/schema.sql</srcFile>
-							</srcFiles>
-						</configuration>
-					</plugin>
 					<plugin>
 						<groupId>org.jooq</groupId>
 						<artifactId>jooq-codegen-maven</artifactId>
