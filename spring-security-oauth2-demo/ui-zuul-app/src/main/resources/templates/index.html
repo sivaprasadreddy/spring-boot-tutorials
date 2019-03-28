@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>ShoppingCart</title>
+</head>
+<body>
+    <div th:each="p : ${products}">
+        <div class="product">
+            <p>Product Name: <span th:text="${p.name}">name</span></p>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/superagent/1.2.0/superagent.js"></script>
+    <script>
+        var request = window.superagent;
+        document.addEventListener('DOMContentLoaded', function () {
+            request.get('api/catalog/products')
+
+                .end(function (err, res) {
+                    console.log("err",err);
+                    console.log("res",res);
+                });
+        }, false);
+
+    </script>
+</body>
+</html>

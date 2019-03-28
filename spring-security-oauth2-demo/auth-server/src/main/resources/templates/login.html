@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>OAuth2 Login</title>
+</head>
+
+<body>
+
+<div >
+    <div >
+        <h1>Login Form</h1>
+
+        <p th:if="${param.error}">
+            Login failed ...
+        </p>
+
+        <p th:if="${param.logout}">
+            Logout succeeded.
+        </p>
+
+        <form method="post" th:action="@{/login}">
+            <div >
+                <input type="text" placeholder="Username" name="username"/>
+            </div>
+            <div >
+                <input type="password" placeholder="Password" name="password"/>
+            </div>
+            <div>
+                <input type="submit" value="Login"/>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
