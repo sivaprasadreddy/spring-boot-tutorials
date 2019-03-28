@@ -12,5 +12,6 @@
 	<modules>
 		<module>springboot-thymeleaf-demo</module>
 		<module>springboot-rest-api-design</module>
+    <module>spring-data-rest-demo</module>
 	</modules>
 </project>

@@ -1,0 +1,15 @@
+image: docker:latest
+services:
+- docker:dind
+
+variables:
+  DOCKER_DRIVER: overlay2
+  SPRING_PROFILES_ACTIVE: gitlab-ci
+
+stages:
+- build
+
+maven-build:
+  stage: build
+  script:
+  - docker run -t --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$(pwd)":"$(pwd)" -w "$(pwd)" -u 0:0 maven:3.5.4-jdk-8-alpine mvn clean verify -B
