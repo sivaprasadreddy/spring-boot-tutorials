@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: db
+    environment:
+     MYSQL_ROOT_PASSWORD: admin
+     MYSQL_DATABASE: demo
+     MYSQL_USER: admin
+     MYSQL_PASSWORD: admin
+
+  app:
+    build: .
+    container_name: ss-jdbc-demo
+    ports:
+     - "9090:8080"
+     - '9797:8787'
+    depends_on:
+      - db

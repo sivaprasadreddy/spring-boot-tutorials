@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  redis:
+    image: "redis:alpine"
+    command: redis-server --appendonly yes
+    container_name: redisserver
+    ports:
+     - "6379:6379"
+
+  app:
+    build: .
+    container_name: ss-redis-demo
+    ports:
+     - "9090:8080"
+     - '9797:8787'
+    depends_on:
+      - redis
