@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: geeksclub-svc
+spec:
+  selector:
+    app: geeksclub-pod
+  ports:
+  - port: 8080
+    targetPort: 8080
+    nodePort: 30090
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: geeksclub-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: geeksclub-pod
+  template:
+    metadata:
+      labels:
+        app: geeksclub-pod
+    spec:
+      containers:
+      - name: geeksclub
+        image: sivaprasadreddy/geeksclub
+        env:
+          - name: SPRING_PROFILES_ACTIVE
+            value: k8s-mysql
+          - name: DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: geeksclub-mysql-configmap
+                key: mysql_host
+          - name: DB_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: geeksclub-mysql-configmap
+                key: mysql_port
+          - name: DB_DATABASE
+            valueFrom:
+              configMapKeyRef:
+                name: geeksclub-mysql-configmap
+                key: mysql_database
+          - name: DB_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: geeksclub-mysql-secrets
+                key: mysql_username
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: geeksclub-mysql-secrets
+                key: mysql_password
+        ports:
+        - containerPort: 8080
+---

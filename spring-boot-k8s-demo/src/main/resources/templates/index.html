@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+  <head>
+    <title>Home</title>
+  </head>
+  <body>
+
+    <div class="container" layout:fragment="content">
+          <div class="row">
+
+              <div class="col-md-2 col-3"></div>
+              <div class="col-8">
+                  <div class="row">
+                    <div class="col-md-4 col-sm-3 justify-content-center" style="padding: 10px" th:each="category : ${categories}">
+                        <a class="btn btn-outline-primary btn-lg" style="width: 150px"
+                           th:href="@{/category/{name}(name=${category.name})}"
+                           th:text="${category.label}">name</a>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-2" ></div>
+        </div>
+    </div>
+  </body>
+</html>

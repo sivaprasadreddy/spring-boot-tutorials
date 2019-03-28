@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <title>New Link</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="container">
+        <div class="card card-body">
+            <form method="post" th:action="@{/links}" th:object="${link}">
+                <h5>Submit New Link</h5>
+                <div th:if="${#fields.hasErrors('global')}" th:errors="*{global}"
+                     th:class="invalid-feedback">
+                    Incorrect data
+                </div>
+                <div class="form-group">
+                    <label>Select Category</label>
+                    <select class="form-control" th:field="*{category.id}">
+                        <option th:each="category : ${categories}"
+                                th:value="${category.id}"
+                                th:utext="${category.label}"/>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" class="form-control" name="title" th:field="*{title}" placeholder="Enter Title"
+                           th:classappend="${#fields.hasErrors('title')}? 'is-invalid'"/>
+                    <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" th:class="invalid-feedback">Incorrect data</div>
+                </div>
+                <div class="form-group">
+                    <label>URL</label>
+                    <input type="text" class="form-control" name="url" th:field="*{url}" placeholder="Enter URL"
+                           th:classappend="${#fields.hasErrors('url')}? 'is-invalid'"/>
+                    <div th:if="${#fields.hasErrors('url')}" th:errors="*{url}" th:class="invalid-feedback">Incorrect data</div>
+                </div>
+                <div class="form-group">
+                    <label>Tags</label>
+                    <input type="text" class="form-control" name="tags" th:field="*{tags}" placeholder="Comma separated tags"
+                           th:classappend="${#fields.hasErrors('tags')}? 'is-invalid'"/>
+                    <div th:if="${#fields.hasErrors('tags')}" th:errors="*{tags}" th:class="invalid-feedback">Incorrect data</div>
+                </div>
+                <button class="btn btn-primary my-2 my-sm-0" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

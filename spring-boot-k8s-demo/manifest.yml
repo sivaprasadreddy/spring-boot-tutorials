@@ -1,0 +1,7 @@
+---
+applications:
+  - name: spring-boot-k8s-demo
+    buildpack: java_buildpack
+    path: target/spring-boot-k8s-demo-1.0.0-SNAPSHOT-exec.jar
+    services:
+      - geeksclubdb

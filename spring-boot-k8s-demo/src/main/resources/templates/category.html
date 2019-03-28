@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+  <head>
+    <title>Home</title>
+  </head>
+  <body>
+
+    <div layout:fragment="content">
+
+        <div style="padding-bottom: 30px;">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#" th:href="@{/}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page" th:text="${category.label}">Category Name</li>
+                </ol>
+            </nav>
+
+            <div th:if="${searchTag != null && searchTag != ''}">
+                <strong>Filtering by Tag: <span class="badge badge-danger" th:text="${searchTag}">searchTag </span>&nbsp;</strong>
+                <a th:href="@{/category/{catName}(catName=${category.name})}"
+                   class="btn btn-sm btn-warning"><i class="fas fa-times"></i> Clear</a>
+            </div>
+
+            <div th:if="${query != null && query != ''}">
+                <strong>Search results for:
+                    <span class="badge badge-pill badge-primary" th:text="${query} ">query </span>&nbsp;</strong>
+                <a th:href="@{/category/{catName}(catName=${category.name})}"
+                   class="btn btn-sm btn-warning"><i class="fas fa-times"></i> Clear</a>
+            </div>
+        </div>
+
+          <div class="row">
+          <div class="col-md-8">
+            <div th:if="${links == null || links.isEmpty()}">
+                <div class="alert alert-danger" role="alert">
+                    No links found
+                </div>
+            </div>
+            <div  th:each="link : ${links}">
+                <div class="card w-100">
+                    <div class="card-body">
+                        <h5 class="card-title"><a target="_blank" th:href="${link.url}" th:text="${link.title}">title</a></h5>
+                        <p class="card-text">
+                            <span th:each="tag : ${link.tags}">
+                                <a href="#" th:href="@{/category/{catName}(catName=${category.name},tag=${tag.name})}"
+                                   class="badge badge-danger" th:text="${tag.name}">tag </a>&nbsp;
+                            </span>
+                        </p>
+                        <div class="link-author">
+                            <strong th:text="${#temporals.format(link.createdOn, 'yyyy-MM-dd')}">Date</strong>
+                            by <a href="#" th:href="@{/users/{userId}(userId=${link.createdBy.id})}"
+                                  th:text="${link.createdBy.name}">User</a> &nbsp;&nbsp;&nbsp;
+                            <!--
+                            <span style="color:green"><i class="far fa-thumbs-up fa-lg"></i> 1</span>&nbsp;&nbsp;
+                            <span style="color:Tomato"><i class="far fa-thumbs-down fa-lg"></i> 0</span>
+                            -->
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+          </div>
+
+          <div class="col-md-4" th:if="${links != null && !links.isEmpty()}">
+              <form th:action="@{/category/{catName}(catName=${category.name})}">
+                  <div class="input-group mb-3">
+                      <input type="search" name="query" class="form-control" placeholder="Search">
+                      <div class="input-group-append">
+                          <button class="btn btn-primary" type="submit">Search</button>
+                      </div>
+                  </div>
+              </form>
+            <h4>Tags</h4>
+            <span th:each="tag : ${categoryTags}">
+                <a href="#" th:href="@{/category/{catName}(catName=${category.name},tag=${tag.name})}"
+                   class="badge badge-danger" th:text="${tag.name}">tag </a>&nbsp;
+            </span>
+          </div>
+        </div>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,40 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: geeksclub-mysql-configmap
+  namespace: default
+data:
+  mysql_host: geeksclub-mysql
+  mysql_port: "3306"
+  mysql_database: geeksclubdb
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: geeksclub-mysql-secrets
+type: Opaque
+data:
+  mysql_root_password: YWRtaW4= # admin
+  mysql_username: c2l2YQ== # siva
+  mysql_password: c2l2YWxhYnM= # sivalabs
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: geeksclub-postgres-configmap
+  namespace: default
+data:
+  postgres_host: geeksclub-postgres
+  postgres_port: "5432"
+  postgres_database: geeksclubdb
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: geeksclub-postgres-secrets
+type: Opaque
+data:
+  postgres_username: c2l2YQ== # siva
+  postgres_password: c2l2YWxhYnM= # sivalabs
+---

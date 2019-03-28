@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <title>New Link</title>
+</head>
+<body>
+
+    <div layout:fragment="content">
+        <div class="container">
+            <div class="userprofile">
+                <div class="row">
+                    <div class="media">
+                        <img class="mr-3" src="/images/user.png" style="height: 150px; width: 150px;">
+                        <div class="media-body">
+                            <h5 class="mt-0" th:text="${userProfile.name}">name</h5>
+                            <p th:text="${userProfile.bio}">Bio</p>
+                            <div>
+                                <span><i class="fas fa-envelope"></i> <span th:text="${userProfile.email}">email</span></span>&nbsp;&nbsp;
+                                <span><i class="fas fa-globe"></i> <span th:text="${userProfile.website}">website</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4>Posted Links</h4>
+                <div th:each="link : ${userProfile.postedLinks}">
+                    <div class="card w-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><a target="_blank" th:href="${link.url}" th:text="${link.title}">title</a></h5>
+                            <p class="card-text">
+                            <span th:each="tag : ${link.tags}">
+                                <a href="#" th:href="@{/tags/{tagName}(tagName=${tag.name})}" class="badge badge-danger" th:text="${tag.name}">tag </a>&nbsp;
+                            </span>
+                            </p>
+                            <div class="link-author">
+                                <strong th:text="${#temporals.format(link.createdOn, 'yyyy-MM-dd')}">Date</strong>
+                                by <a href="#" th:href="@{/users/{userId}(userId=${link.createdBy.id})}" th:text="${link.createdBy.name}">User</a> &nbsp;&nbsp;&nbsp;
+
+                                <!--
+                                <span style="color:green"><i class="far fa-thumbs-up fa-lg"></i> 1</span>&nbsp;&nbsp;
+                                <span style="color:Tomato"><i class="far fa-thumbs-down fa-lg"></i> 0</span>
+                                -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

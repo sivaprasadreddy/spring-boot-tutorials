@@ -1,0 +1,31 @@
+sudo: required
+language: java
+jdk: oraclejdk8
+services:
+  - docker
+env:
+  global:
+    - secure: "LKei9gZ5GhYbWk7sUjLBYzcTsX0G/538avbYO7z0kT1jDPx89JcaTgOFdj9e0lE+75BeVhdEjaAWXKWI3/kqxe0ZfkCnkGAxFWFBZeT59Vz2C9PMO9dMjbpysEXngy0jgM1cb8u6dAe1L8atnyXmtBKul6HfTdh6ZdYE+8OAuQWLkiP7o+ZklYF3+HRN9H1wbiMm7nNXdLAEPVCDlIqO0VRMJkqnHIETuOMytAsaN4Bb/2l0USeLqm0aVYE9NWdkp0QpG6rKOsI7UV9QCX76UPJmx0UK99JP5TICCY6BxlPuoBbbnHlm6ZNc4RQf2RQ6s4IUsXFrPGiyw77zIBj60mt4f3nR+4MeV0U4LJA/FLjTiv1wsS9qo4zbXCbZ+2pxvP4dewpSocpy32On+m/FgIKpiutcR+gca3nv0jgpaUZflQkXYaYhnoM/X3n+G3UHcZRRWPWBcGZU9tYhkikTt1kZDAO2CbGuzU6s2UgSoQctUVxIu0fqsH3MCBdlNTl5eDE54IGO1C+zrgBcDVBHK+IDo2UDMt42I9W0da0zRlx4YAC5+a8plx2jsAsPnRX7Zb3bt3y2B3dMuU6C8nY32PPJ+bQrEU236zNP3b79RD7hADo/BRZFqkLjJuNvH8y0anm4vnfuhbWxRODOOrJ67ExFYjKwJ8FZjaFsaqFvv54="
+    - secure: "jtjY7PsX3k/ocLNxOYA3/2PPdV8l+ZfXTyo4mnKiEJ4248zAiS6yiDbHubAA9MkUq43GJ38gapyT77QrNLBMZ+AFO9Mf3SQKGzf8NATVP/XRYw6a7BKNiMy+0oSDvBItGcrV+mdDFOSTM6NNbOuahP4SGASb96Yy/LKgoiNMBQa8c8Hrf2N1C0OaZbnWMxrSzyNG2poTIMAudsZyNy7P5SZUV4i8jUzCtd3BuRb0WMKJ/t4sXXBXxYFBzM8w4wpy7xJWw1DlZmOq5qUBhjnYAouz4qbuZoSr9hgDsBSnnN/einL2AbC8653N4fG3duzuIc6GzehIE/fiFXU0e9L9EHNYPN3FFst3+Iw97mZS8h/0Mm4NHdk9M6Of/2CWyCMoYr+1ZkBzZhBTXue7ZB+lzlym6b6GAj5WHAYNJnh5eu+6YC+Yi4NdYldIqLtymNgmSINum7OSJZvdCUgoJrJ2u5/uLurAA6B10Uaf6JWxEPQI4fKYaKUfaBhq8oM63jZpQjPo4KY+ZjZNCOUsIAt/0p6+7qmHqXMNKIC6pr7YUZUAoFc2PtkHPVGC4TR8+D2eYsmhboQFbD8Q3RevJ2QBaCK3SGz1dLVRvD+PRW+evjNjX2GvP/Ur9Xa+8r7quWsAtgs+lcPNJEF+pceMfZpHkpNI8702qe3vtyDd3eaMR1E="
+    - secure: "fYhrTDolHrNlNyWdo5DDGxhDpUco22zSdSUfI5e8zN1KuNIrJMkHpm/jpN56uv+gncsyrvi2iF++MXMk7dsEZGQaXwwzRuFo9lqRItkz/69DreLMBBio5Yn5vQqQYsvqg82TQEiCP+K3O7/pNC0seIF/yt28D6QCIG2NlrhnmT+i46GiSETK8L2YsB15GigVr3Sw5PxcoZSSG4fg5k8JVxQxUCCDkszqULX+Wi/nNlYbtJ0BKz4NvA990J4En/7hsx1k5lyZq2oQ/4P6ZRxOixPd4dCbIihKhgQYh6W8/8uyRah0QSTEJuQIvbpNF1Z02Aqvo2yTh4URrevhriihKotnb+ZkGAQUooOiszCcJeYnC8wBW/6n1ZfuYQY8eRwQMfEXPvE6hmpsgr5RSZK9x3yTLZud4Wq4X3dqi3K6lbuvR9wZ4KXRuWrO6P6sUq2NpEwD+ZKPhHL8g760crZD2JdYxPiIpx7hNnAOxtnfI9J+q2xeomoZkMk43USep8QJNwBfCm8ZRPoUzIsoTZWP3W3iE+q91JX4sF6sWxZRwso5WqLosTIL6rZHWCCzl8NU2WAwxhaUk39jrmOdxw+lmivmZVqkWx3AHDmEQp0HdGvu0fnSEKeZIei1FvdHkNqmE6vE33u3kHJIC1EKSEKPFNOAJ7TNCgmQW2W1p6YtXNk="
+    - COMMIT=${TRAVIS_COMMIT::7}
+
+script:
+  - ./mvnw clean install -B
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+
+after_success:
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
+  - export IMAGE_NAME=sivaprasadreddy/geeksclub
+  - docker build -t $IMAGE_NAME:$COMMIT .
+  - docker tag $IMAGE_NAME:$COMMIT $IMAGE_NAME:$TAG
+  - docker push $IMAGE_NAME
+
+deploy:
+  provider: heroku
+  api_key: $HEROKU_API_KEY
+  app: geeksclub

@@ -1,0 +1,86 @@
+
+spring:
+  application:
+    name: geeksclub
+  datasource:
+    initialization-mode: always
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+#  profiles:
+#    active: local
+
+info:
+  app:
+    name: GeeksClub
+    version: 0.0.1-SNAPSHOT
+logging:
+  level:
+    com:
+      sivalabs: debug
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+      sla:
+        http.server.requests: 50ms
+---
+
+spring:
+  profiles: local
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/geeksclubdb
+    username: siva
+    password: sivalabs
+
+---
+
+spring:
+  profiles: docker
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://gcpostgres:5432/geeksclubdb
+    username: siva
+    password: sivalabs
+
+---
+
+spring:
+  profiles: heroku
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${JDBC_DATABASE_URL}
+
+---
+
+spring:
+  profiles: k8s-mysql
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_DATABASE:geeksclubdb}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:admin}
+---
+
+spring:
+  profiles: k8s-postgres
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_DATABASE:geeksclubdb}
+    username: ${DB_USERNAME:admin}
+    password: ${DB_PASSWORD:admin123}

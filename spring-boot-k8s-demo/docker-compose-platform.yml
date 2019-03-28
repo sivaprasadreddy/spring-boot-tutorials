@@ -1,0 +1,11 @@
+version: '3.1'
+services:
+  jenkins-blueocean:
+    image: jenkinsci/blueocean
+    container_name: jenkins-blueocean
+    ports:
+      - "7070:8080"
+      - "50000:50000"
+    volumes:
+      - ~/docker/jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock

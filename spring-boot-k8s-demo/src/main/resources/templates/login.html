@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <title>Login</title>
+</head>
+<body>
+
+    <div layout:fragment="content">
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="card" style="width: 30rem;">
+                    <div class="card-body">
+                        <h3 class="card-title">User Login Form</h3>
+                        <p class="card-text">
+                        <form class="form" th:action="@{/login}" method="POST">
+                            <div class="alert alert-danger" role="alert" th:if="${param.error}">
+                                <span>Invalid Email and Password.</span>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input class="form-control" type="text" name="username" placeholder="Enter Email"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input class="form-control" type="password" name="password"  placeholder="Enter password"/>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Login</button>
+                            </div>
+                        </form>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <title>Registration</title>
+</head>
+<body>
+
+    <div layout:fragment="content">
+        <div class="container">
+            <div class="alert alert-primary" role="alert">
+                <p th:text="${message}">Registration is successful.</p>
+                <p>Please <a href="#" th:href="@{/login}" class="alert-link">Login</a>.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

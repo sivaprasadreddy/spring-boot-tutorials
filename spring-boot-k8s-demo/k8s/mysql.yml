@@ -1,0 +1,75 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: geeksclub-mysql
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: geeksclub-mysql-pod
+  clusterIP: None
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: geeksclub-mysql-deployment
+spec:
+  selector:
+    matchLabels:
+      app: geeksclub-mysql-pod
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: geeksclub-mysql-pod
+    spec:
+      containers:
+      - image: mysql:5.6
+        name: mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: geeksclub-mysql-secrets
+              key: mysql_root_password
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: geeksclub-mysql-secrets
+              key: mysql_username
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: geeksclub-mysql-secrets
+              key: mysql_password
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: geeksclub-mysql-configmap
+              key: mysql_database
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: geeksclub-mysql-pv-claim
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: geeksclub-mysql-pv-claim
+  labels:
+    app: geeksclub-mysql-pod
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+---
+

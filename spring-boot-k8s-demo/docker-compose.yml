@@ -1,0 +1,76 @@
+version: '3.1'
+
+services:
+  spring-boot-k8s-demo:
+    build: .
+    container_name: spring-boot-k8s-demo
+    ports:
+      - "18080:8080"
+      - "18787:8787"
+    depends_on:
+      - gcpostgres
+      - grafana
+    restart: unless-stopped
+
+  gcmysql:
+    image: mysql:5.6.26
+    container_name: gcmysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=gcadmin
+      - MYSQL_DATABASE=geeksclubdb
+      - MYSQL_USER=siva
+      - MYSQL_PASSWORD=sivalabs
+    ports:
+      - "3316:3306"
+
+  gcpostgres:
+    image: postgres
+    container_name: gcpostgres
+    environment:
+      - POSTGRES_USER=siva
+      - POSTGRES_PASSWORD=sivalabs
+      - POSTGRES_DB=geeksclubdb
+      - PGDATA=/data/postgres
+    volumes:
+      - ~/data/gcpostgres:/data/postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  pgadmin:
+    image: fenglc/pgadmin4
+    container_name: pgadmin
+    volumes:
+      - ~/data/pgadmin:/root/.pgadmin
+    ports:
+      - "5050:5050"
+    restart: unless-stopped
+    links:
+      - gcpostgres:postgres
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    depends_on:
+      - prometheus
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./support/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+
+volumes:
+  prometheus_data: {}
+  grafana_data: {}

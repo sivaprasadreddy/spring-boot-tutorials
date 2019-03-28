@@ -1,0 +1,142 @@
+pipeline {
+    agent any
+
+    triggers {
+            pollSCM('* * * * *')
+    }
+
+    environment {
+        DOCKER_USERNAME = 'sivaprasadreddy'
+        APPLICATION_NAME = 'spring-boot-k8s-demo'
+
+    }
+
+    parameters {
+        booleanParam(name: 'PUBLISH_TO_DOCKERHUB', defaultValue: true, description: 'Should build and publish Docker Image to DockerHub?')
+        booleanParam(name: 'DEPLOY_TO_PCFDEV', defaultValue: false, description: 'Should deploy to PCF Dev?')
+        booleanParam(name: 'DEPLOY_TO_PCF', defaultValue: false, description: 'Should deploy to PCF?')
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                sh './mvnw clean package -DskipTests'
+            }
+        }
+
+        stage('Unit Test') {
+            steps {
+                sh './mvnw test'
+            }
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                }
+            }
+        }
+
+        stage('Integration Test') {
+            steps {
+                sh './mvnw integration-test -DskipUnitTests'
+            }
+            post {
+                always {
+                    junit 'target/failsafe-reports/*.xml'
+                }
+            }
+        }
+
+        stage('JaCoCo Code Coverage Check') {
+            steps {
+                sh './mvnw jacoco:prepare-agent jacoco:prepare-agent-integration jacoco:report jacoco:report-integration jacoco:check'
+            }
+            post {
+                always {
+                    publishHTML(target:[
+                         allowMissing: true,
+                         alwaysLinkToLastBuild: true,
+                         keepAll: true,
+                         reportDir: 'target/site/jacoco',
+                         reportFiles: 'index.html',
+                         reportName: "JaCoCo UnitTest Report"
+                    ])
+
+                    publishHTML(target:[
+                         allowMissing: true,
+                         alwaysLinkToLastBuild: true,
+                         keepAll: true,
+                         reportDir: 'target/site/jacoco-it',
+                         reportFiles: 'index.html',
+                         reportName: "JaCoCo IT Report"
+                    ])
+                }
+            }
+
+        }
+
+        stage('OWASP Dependency Check') {
+            steps {
+                sh './mvnw dependency-check:check'
+            }
+        }
+
+        stage("Publish to DockerHub") {
+            when {
+                // Only publish if PUBLISH_TO_DOCKERHUB=true
+                expression { params.PUBLISH_TO_DOCKERHUB == true }
+            }
+            steps {
+              sh "docker build -t ${env.DOCKER_USERNAME}/${env.APPLICATION_NAME}:${BUILD_NUMBER} -t ${env.DOCKER_USERNAME}/${env.APPLICATION_NAME}:latest ."
+
+              withCredentials([[$class: 'UsernamePasswordMultiBinding',
+                                credentialsId: 'docker-hub-credentials',
+                                usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+                  sh "docker login --username $USERNAME --password $PASSWORD"
+              }
+              sh "docker push ${env.DOCKER_USERNAME}/${env.APPLICATION_NAME}:latest"
+              sh "docker push ${env.DOCKER_USERNAME}/${env.APPLICATION_NAME}:${BUILD_NUMBER}"
+            }
+        }
+
+        stage("Deploy to PCFDev") {
+            when {
+                // Only deploy if DEPLOY_TO_PCFDEV=true
+                expression { params.DEPLOY_TO_PCFDEV == true }
+            }
+            steps {
+                pushToCloudFoundry(
+                    target: 'https://api.local.pcfdev.io',
+                    organization: 'pcfdev-org',
+                    cloudSpace: 'pcfdev-space',
+                    credentialsId: 'PCFDev-credentials',
+                    selfSigned: true,
+                    pluginTimeout: 240,
+                    servicesToCreate: [
+                        [name: 'geeksclubdb', plan: '512mb', type: 'p-mysql']
+                    ]
+                )
+            }
+        }
+
+        stage("Deploy to PCF") {
+            when {
+                // Only deploy if DEPLOY_TO_PCF=true
+                expression { params.DEPLOY_TO_PCF == true }
+            }
+            steps {
+
+                pushToCloudFoundry(
+                    target: 'https://api.run.pivotal.io',
+                    organization: 'SivaOrg',
+                    cloudSpace: 'development',
+                    credentialsId: 'pcf-credentials',
+                    pluginTimeout: 240,
+                    servicesToCreate: [
+                        [name: 'geeksclubdb', plan: 'turtle', type: 'elephantsql']
+                    ]
+                )
+            }
+        }
+
+    }
+}
