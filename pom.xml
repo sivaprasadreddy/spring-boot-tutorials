@@ -15,5 +15,6 @@
         <module>spring-session</module>
         <module>spring-security-oauth2-demo</module>
         <module>spring-boot-k8s-demo</module>
+        <module>testing</module>
     </modules>
 </project>

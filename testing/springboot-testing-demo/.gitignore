@@ -1,0 +1,19 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+.settings
+target
+.classpath
+.project
+.springBeans
+.tern-project
+
+bin
+build
+.gradle
+.idea
+*.iml
