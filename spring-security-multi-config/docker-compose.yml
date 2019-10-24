@@ -1,0 +1,35 @@
+version: '3.1'
+services:
+
+  spring-security-multi-config:
+    build: .
+    container_name: spring-security-multi-config
+    ports:
+      - "8080:8080"
+      - "8787:8787"
+    restart: always
+    depends_on:
+      - todolist-db
+
+  todolist-db:
+    image: postgres:10.7
+    container_name: todolist-db
+    environment:
+      - POSTGRES_USER=siva
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=appdb
+      - PGDATA=/data/postgres
+    volumes:
+      - ~/data/todolist-db:/data/postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  localstack:
+    image: "localstack/localstack:0.8.7"
+    environment:
+      - SERVICES=dynamodb,kinesis,sqs,s3
+      - DEFAULT_REGION=moon-central-1
+      - DEBUG=1
+    ports:
+      - "4567-4583:4567-4583"

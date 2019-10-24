@@ -1,0 +1,20 @@
+language: java
+jdk: oraclejdk8
+sudo: false
+
+services:
+  - docker
+
+env:
+  global:
+  - secure: "q351o3HYCRYa2A3KlizY29zCNWJThKFoR1BP5VBXfNvpX6w3E7KBtcyJjY7hnVkw/pwIFjk8TBs38fL1ldcm1PS4J/xHde7ZX5+3QbJEGp79OHnqHv7FUz0Yuo9eGAMQG36QdYAbDXfHo7FKeWG/OjHneVgkcJLBK3hFNpp7FOFNV9mChoMsWvDBsBRaVRJ+lG0Vvv7HxqLrontgRGRgMzOAHRqxvAqSEY8Isy/KJ1pwMg+6ByEbw4PhWKCpt1Zp37iPqHmJnxzU2vLvu30txdFfkR+fCumYAWUlFilwXNcHbVPb3GonGN7U9Q3ySlfpQ6oLu982UedyVDAf6ovF4iDqNNp+Y31/Y4/zNd6Ie6K9TTO8liPksphX2dyNFP//XGZvd9BF1gakJhoVIbfjjBF0Yj6M4qUIATK5cKJZ6X3lA+difZMdWs3s+L+Kv6O0XIx+sFwV+DzkZDy9D5k4pEFd8fIP6303V12svNzdBUD3R53spntEO/7Xu/e1ymVOk5ew8Vsh9AZWKUQ0MDPwKLBitFgTdObcAHBLay3xYaK9xaVFL1oh5zWw0zskMEP4DAsfxGcuTXzAV+AG8rb9CEf9ukUpAqWFaiyzaHTmaR4OMLi64hj4SLuRStordg8OzhZnKmrklZpeORrLKkGwnUIIQWsNwKCeiGKLoVO/klY="
+
+script:
+  - ./mvnw clean verify
+
+deploy:
+  provider: heroku
+  api_key: $HEROKU_API_KEY
+  app: sivalabs-todolist
+  on:
+    branch: master

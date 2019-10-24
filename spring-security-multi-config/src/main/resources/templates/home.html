@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{mainLayout}">
+<head>
+    <title>Home</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="collapse" id="collapseExample" style="padding-bottom: 20px;">
+        <div class="card card-body" >
+            <form class="form" @submit.prevent="saveTodo"
+                  style="padding-bottom: 5px;">
+                <div class="form-group">
+                <textarea class="form-control" rows="3" placeholder="Enter message"
+                      v-model="newTodo.content"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div>
+        <ul class="list-group">
+            <table class="table table-striped">
+                <tbody>
+                <tr v-for="t in todos">
+                    <td style="width: 90%">{{t.content}}</td>
+                    <td><button type="button" class="btn btn-danger" v-on:click="deleteTodo(t.id)">Delete</button></td>
+                </tr>
+                </tbody>
+            </table>
+        </ul>
+    </div>
+</div>
+<div layout:fragment="pageScripts">
+<script th:src="@{'/js/app.js'}"></script>
+</div>
+</body>
+</html>
