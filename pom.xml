@@ -13,7 +13,7 @@
         <module>web</module>
         <module>spring-cloud</module>
         <module>spring-session</module>
-        <module>spring-security-oauth2-demo</module>
+        <module>security</module>
         <module>spring-boot-k8s-demo</module>
         <module>testing</module>
     </modules>
