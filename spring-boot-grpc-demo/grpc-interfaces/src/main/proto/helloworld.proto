@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package com.sivalabs.grpc.demo;
+
+option java_multiple_files = true;
+option java_package = "com.sivalabs.grpc.demo";
+option java_outer_classname = "HelloWorldProto";
+
+// The greeting service definition.
+service HelloService {
+    // Sends a greeting
+    rpc sayHello (HelloRequest) returns (HelloResponse) {
+    }
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+    string name = 1;
+}
+
+// The response message containing the greetings
+message HelloResponse {
+    string message = 1;
+}

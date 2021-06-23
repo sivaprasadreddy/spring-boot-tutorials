@@ -1,0 +1,34 @@
+[
+  {
+    "_class": "com.sivalabs.springmongodbdemo.documents.Person",
+    "firstName": "Siva1",
+    "lastName": "Katamreddy",
+    "email": "siva@gmail.com",
+    "phone": "99991111222",
+    "address": {
+      "street": "KPHB",
+      "city": "Hyderabad",
+      "state": "TS",
+      "zip": "500072",
+      "country": "India"
+    },
+    "createdBy": "siva",
+    "createdDate": "2021-05-24T03:16:28.087Z"
+  },
+  {
+    "_class": "com.sivalabs.springmongodbdemo.documents.Person",
+    "firstName": "Siva2",
+    "lastName": "Katamreddy",
+    "email": "siva@gmail.com",
+    "phone": "99991111222",
+    "address": {
+      "street": "KPHB",
+      "city": "Hyderabad",
+      "state": "TS",
+      "zip": "500072",
+      "country": "India"
+    },
+    "createdBy": "siva",
+    "createdDate": "2021-05-24T03:16:28.087Z"
+  }
+]

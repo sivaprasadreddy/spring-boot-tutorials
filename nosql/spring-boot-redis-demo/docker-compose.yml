@@ -1,0 +1,11 @@
+version: '3.5'
+
+services:
+
+  redis:
+    image: redis:6.0.9
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_REPLICATION_MODE=master
+    restart: unless-stopped

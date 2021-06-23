@@ -1,0 +1,30 @@
+#============================================================================
+# Configure Main Scheduler Properties
+#============================================================================
+org.quartz.scheduler.instanceName=spring-boot-quartz-cluster-example
+org.quartz.scheduler.instanceId=AUTO
+
+#============================================================================
+# Configure ThreadPool
+#============================================================================
+org.quartz.threadPool.class=org.quartz.simpl.SimpleThreadPool
+org.quartz.threadPool.threadCount=1
+
+#============================================================================
+# Configure JobStore
+#============================================================================
+org.quartz.jobStore.class=org.quartz.impl.jdbcjobstore.JobStoreTX
+#org.quartz.jobStore.driverDelegateClass=org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+org.quartz.jobStore.driverDelegateClass = org.quartz.impl.jdbcjobstore.PostgreSQLDelegate
+org.quartz.jobStore.useProperties=true
+org.quartz.jobStore.misfireThreshold=60000
+org.quartz.jobStore.tablePrefix=QRTZ_
+
+org.quartz.jobStore.isClustered=true
+org.quartz.jobStore.clusterCheckinInterval=20000
+
+org.quartz.jobStore.dataSource=quartzDS
+org.quartz.dataSource.quartzDS.driver=org.postgresql.Driver
+org.quartz.dataSource.quartzDS.URL=jdbc:postgresql://localhost:5432/postgres
+org.quartz.dataSource.quartzDS.user=postgres
+org.quartz.dataSource.quartzDS.password=postgres

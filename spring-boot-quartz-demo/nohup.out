@@ -1,0 +1,55 @@
+TimeZone is: sun.util.calendar.ZoneInfo[id="GMT",offset=0,dstSavings=0,useDaylight=false,transitions=0,lastRule=null]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.4.2)
+
+2021-02-01 08:13:26.491  INFO 80933 --- [           main] com.example.demo.DemoApplication         : Starting DemoApplication v0.0.1-SNAPSHOT using Java 11.0.2 on Ks-MacBook-Pro.local with PID 80933 (/Users/ksivaprasadreddy/Siva/Projects/My/siva/spring-boot-quartz-demo/target/demo-0.0.1-SNAPSHOT.jar started by ksivaprasadreddy in /Users/ksivaprasadreddy/Siva/Projects/My/siva/spring-boot-quartz-demo)
+2021-02-01 08:13:26.495  INFO 80933 --- [           main] com.example.demo.DemoApplication         : No active profile set, falling back to default profiles: default
+2021-02-01 08:13:27.945  INFO 80933 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-02-01 08:13:28.024  INFO 80933 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 64 ms. Found 1 JPA repository interfaces.
+2021-02-01 08:13:28.890  INFO 80933 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-02-01 08:13:28.932  INFO 80933 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-02-01 08:13:28.933  INFO 80933 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2021-02-01 08:13:29.033  INFO 80933 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-02-01 08:13:29.034  INFO 80933 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2463 ms
+2021-02-01 08:13:29.477  INFO 80933 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-02-01 08:13:29.672  INFO 80933 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-02-01 08:13:29.754  INFO 80933 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-02-01 08:13:29.867  INFO 80933 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2021-02-01 08:13:30.099  INFO 80933 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-02-01 08:13:30.291  INFO 80933 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2021-02-01 08:13:31.046  INFO 80933 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-02-01 08:13:31.056  INFO 80933 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-02-01 08:13:31.500  INFO 80933 --- [           main] org.quartz.impl.StdSchedulerFactory      : Using default implementation for ThreadExecutor
+2021-02-01 08:13:31.523  INFO 80933 --- [           main] org.quartz.core.SchedulerSignalerImpl    : Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2021-02-01 08:13:31.523  INFO 80933 --- [           main] org.quartz.core.QuartzScheduler          : Quartz Scheduler v.2.3.2 created.
+2021-02-01 08:13:31.529  INFO 80933 --- [           main] o.s.s.quartz.LocalDataSourceJobStore     : Using db table-based data access locking (synchronization).
+2021-02-01 08:13:31.532  INFO 80933 --- [           main] o.s.s.quartz.LocalDataSourceJobStore     : JobStoreCMT initialized.
+2021-02-01 08:13:31.533  INFO 80933 --- [           main] org.quartz.core.QuartzScheduler          : Scheduler meta-data: Quartz Scheduler (v2.3.2) 'quartzScheduler' with instanceId 'Ks-MacBook-Pro.local1612167211506'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.springframework.scheduling.quartz.LocalDataSourceJobStore' - which supports persistence. and is clustered.
+
+2021-02-01 08:13:31.533  INFO 80933 --- [           main] org.quartz.impl.StdSchedulerFactory      : Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2021-02-01 08:13:31.533  INFO 80933 --- [           main] org.quartz.impl.StdSchedulerFactory      : Quartz scheduler version: 2.3.2
+2021-02-01 08:13:31.533  INFO 80933 --- [           main] org.quartz.core.QuartzScheduler          : JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@6a472566
+2021-02-01 08:13:31.970  WARN 80933 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-02-01 08:13:32.141  INFO 80933 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-02-01 08:13:32.559  INFO 80933 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2021-02-01 08:13:32.621  INFO 80933 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-02-01 08:13:32.623  INFO 80933 --- [           main] o.s.s.quartz.SchedulerFactoryBean        : Starting Quartz Scheduler now
+2021-02-01 08:13:32.674  INFO 80933 --- [           main] org.quartz.core.QuartzScheduler          : Scheduler quartzScheduler_$_Ks-MacBook-Pro.local1612167211506 started.
+2021-02-01 08:13:32.697  INFO 80933 --- [           main] com.example.demo.DemoApplication         : Started DemoApplication in 6.859 seconds (JVM running for 7.535)
+Hibernate: insert into person (age) values (?)
+2021-02-01 08:14:00.032  INFO 80933 --- [eduler_Worker-1] com.example.demo.SampleJob               : Started at 2021-02-01T08:14:00.031997
+Hibernate: select person0_.id as id1_0_0_, person0_.age as age2_0_0_ from person person0_ where person0_.id=?
+2021-02-01 08:14:00.062  INFO 80933 --- [eduler_Worker-1] com.example.demo.SampleJob               : Age=26
+2021-02-01 08:14:00.062  INFO 80933 --- [eduler_Worker-1] com.example.demo.SampleJob               : sleeping for 20 seconds

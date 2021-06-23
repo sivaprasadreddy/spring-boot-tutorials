@@ -9,12 +9,16 @@
     <modules>
         <module>basics</module>
         <module>database</module>
+        <module>nosql</module>
 		<module>search</module>
         <module>web</module>
         <module>spring-cloud</module>
         <module>spring-session</module>
         <module>security</module>
         <module>spring-boot-k8s-demo</module>
+        <module>spring-boot-quartz-demo</module>
+        <module>spring-boot-aws-demo</module>
+        <module>spring-boot-grpc-demo</module>
         <module>testing</module>
     </modules>
 </project>
