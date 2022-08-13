@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{mainLayout}">
+<head>
+    <title>Error</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div class="alert alert-warning" role="alert">
+        <h4 class="alert-heading">Ooops, Something went wrong!</h4>
+        <h5 th:text="${message}"/>
+        <hr>
+        <p class="mb-0"><a href="/" class="alert-link">Go Home</a></p>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity"
+      layout:decorate="~{mainLayout}">
+<head>
+    <title>Home</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="row">
+    <div class="col-md-9">
+
+        <div >
+            <div class="alert alert-primary" role="alert" th:each="bookmark: ${bookmarksData}">
+                <h3 class="alert-heading">
+                    <a href="#" th:href="${bookmark.url}" th:text="${bookmark.title}"
+                       target="_blank"></a>
+                </h3>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+</body>
+</html>

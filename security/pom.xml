@@ -13,5 +13,6 @@
 		<module>spring-security-multi-config</module>
 		<module>spring-security-oauth2-demo</module>
 		<module>custom-security-expressions</module>
+		<module>spring-boot-social-login</module>
 	</modules>
 </project>

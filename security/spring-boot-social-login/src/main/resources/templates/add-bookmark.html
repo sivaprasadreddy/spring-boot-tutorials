@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{mainLayout}">
+<head>
+    <title>Add Bookmark</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="row">
+
+        <div class="col-md-6 offset-md-3">
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>Add New Bookmark</h3>
+                </div>
+                <div class="card-body">
+                    <form id="addForm" method="post" th:action="@{/bookmarks}" th:object="${bookmark}"
+                          class="form-horizontal" role="form"
+                          cssStyle="width: 800px; margin: 0 auto;">
+                        <div class="form-group">
+                            <label for="url" class="col-sm-2 control-label">URL*</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="url" name="url"
+                                       th:field="*{url}"
+                                       class="form-control"
+                                       th:classappend="${#fields.hasErrors('url')} ? 'is-invalid' : ''"
+                                       placeholder="Enter URL"
+                                       th:onchange="'javascript:getPageMetadata( \'addForm\');'"/>
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('url')}" th:errors="*{url}">Url Error</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="title" class="col-sm-2 control-label">Title</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="title" name="title"
+                                       th:field="*{title}"
+                                       class="form-control"
+                                       th:classappend="${#fields.hasErrors('title')} ? 'is-invalid' : ''"
+                                       placeholder="Enter title" />
+                                <div class="invalid-feedback"  th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-4">
+                                <input type="submit" class="btn btn-primary pull-right"
+                                       value="Submit"/>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
