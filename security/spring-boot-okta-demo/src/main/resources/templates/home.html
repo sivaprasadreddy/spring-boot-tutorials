@@ -1,0 +1,38 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Details</title>
+    <!--/*/ <th:block th:include="head :: head"/> /*/-->
+</head>
+<body id="samples">
+<div th:replace="menu :: menu"></div>
+
+<div id="content" class="container">
+    <h2>Okta Hosted Login + Spring Boot Example</h2>
+
+    <div th:unless="${#authorization.expression('isAuthenticated()')}" class="text fw-light fs-6 lh-1">
+        <p>Hello!</p>
+        <p>If you're viewing this page then you have successfully configured and started this example server.</p>
+        <p>This example shows you how to use the <a href="https://github.com/okta/okta-spring-boot">Okta Spring Boot
+            Starter</a> to add the <a
+                href="https://developer.okta.com/docs/guides/implement-grant-type/authcode/main/">Authorization
+            Code Flow</a> to your application.</p>
+        <p>When you click the login button below, you will be redirected to the login page on your Okta org. After you
+            authenticate, you will be returned to this application.</p>
+    </div>
+
+    <div th:if="${#authorization.expression('isAuthenticated()')}" class="text fw-light fs-6 lh-1">
+        <p>Welcome home, <span th:text="${#authentication.principal.name}">Joe Coder</span>!</p>
+        <p>You have successfully authenticated against your Okta org, and have been redirected back to this application.</p>
+        <p th:if="${#lists.contains(authorities, 'SCOPE_profile')}">Visit the <a th:href="@{/profile}">My Profile</a> page in this application to view the information retrieved with your OAuth Access Token.</p>
+
+    </div>
+
+    <form th:unless="${#authorization.expression('isAuthenticated()')}" method="get"
+          th:action="@{/oauth2/authorization/okta}">
+        <button id="login-button" class="btn btn-primary" type="submit">Sign In</button>
+    </form>
+
+</div>
+</body>
+<!--/*/ <th:block th:include="footer :: footer"/> /*/-->
+</html>
